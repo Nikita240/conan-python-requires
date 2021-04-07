@@ -1,5 +1,4 @@
 from conans import ConanFile
-from pathlib import Path
 
 class SometoolTestConan(ConanFile):
     python_requires = "sometool/[>0.0]"
@@ -8,9 +7,8 @@ class SometoolTestConan(ConanFile):
 
     def build(self):
         sometool = self.python_requires["sometool"].module.sometool
-        print(sometool.what_module_am_i())
+        sometool.configure(self.recipe_folder)
+        sometool.build()
 
     def test(self):
         return
-
-
