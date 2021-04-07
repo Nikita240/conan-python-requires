@@ -2,6 +2,12 @@ import sys
 from importlib.machinery import SourceFileLoader, FileFinder, SOURCE_SUFFIXES
 from importlib.util import module_from_spec
 
+class SomeTool():
+    def __init__(self):
+        self.__dict__ = globals()
+
+this = SomeTool()
+
 files_to_compile = []
 
 def add_file(file):
@@ -13,7 +19,7 @@ def configure(root_folder):
     config_module = module_from_spec(spec)
     spec.loader.exec_module(config_module)
 
-    config_module.setup(sys.modules[__name__])
+    config_module.setup(this)
 
 def build():
     for file in files_to_compile:
